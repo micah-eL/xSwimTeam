@@ -13,7 +13,8 @@ You can install the dependencies for the API using the requirements.txt file in 
 1. Flask
 2. flask-restful
 3. mysql-connector-python
-4. requests (used only in test.py) 
+4. requests (used only in test.py)
+
 To be able to connect the app to my API running locally on a Flask dev server, I set the host on the Flask app equal to “0.0.0.0” which causes it to run on http://local.IP.address:port_number/ instead of localhost.
 Also note that the Flask dev server does not use TLS so I had to modify the info.plist of the app. See [this](https://stackoverflow.com/questions/32631184/the-resource-could-not-be-loaded-because-the-app-transport-security-policy-requi) Stack Overflow post for more info.
 
