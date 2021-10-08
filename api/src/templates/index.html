@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>X SWIM TEAM API</h1>
+            <h3>API documentation</h3>
+            <ul>
+                <h4>Swimmer API, endpoint: http://local.IP.address:port_number/swimmer/&lt;user_id&gt;</h4>
+                
+                GET
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Example: curl http://local.IP.address:port_number/swimmer/2</li>
+                        <li>Use user_id=0 to list all swimmers and their associated IDs</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 200</li>
+                            <li>Response body contains the swimmer's info in JSON format</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 404</li>
+                            <li>Response body: "There is no user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+
+                PUT
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Required data: name (first and last), birthdate (yyyy-mm-dd format), swimmer_group, and main_event</li>
+                        <li>Example: curl -X PUT -d "name=Sehajvir Singh" -d "birthdate=2001-03-03" -d "swimmer_group=HP" -d "main_event=Backstroke" http://local.IP.address:port_number/swimmer/4</li>
+                        <li>This cURL format is possible with Flask's reqparse (see <a href="https://flask-restful.readthedocs.io/en/latest/reqparse.html">here</a> for more info)</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 201</li>
+                            <li>Response body contains an updated list of swimmer names + IDs in JSON format</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 409</li>
+                            <li>Response body: "There is already a user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+
+                PATCH
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Optional data to update: name (first and last), swimmer_group, and main_event</li>
+                        <li>Example: curl -X PATCH -d "main_event=Sprint free" http://local.IP.address:port_number/swimmer/2</li>
+                        <li>This cURL format is possible with Flask's reqparse (see <a href="https://flask-restful.readthedocs.io/en/latest/reqparse.html">here</a> for more info)</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 202</li>
+                            <li>Response body contains the updated swimmer info JSON format</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 409</li>
+                            <li>Response body: "There is already a user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+
+                DELETE
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Example: curl -X DELETE http://local.IP.address:port_number/swimmer/3</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 204</li>
+                            <li>Delete does not return JSON serializable data</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 404</li>
+                            <li>Response body: "There is no user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+                
+
+                <br>
+
+
+                <h4>Coach API, endpoint: http://local.IP.address:port_number/coach/&lt;user_id&gt;</h4>
+                GET
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Example: curl http://local.IP.address:port_number/coach/2</li>
+                        <li>Use user_id=0 to list all coaches and their associated IDs</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 200</li>
+                            <li>Response body contains the coach's info in JSON format</li>
+                            <li>Coaches' ages are not included</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 404</li>
+                            <li>Response body: "There is no user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+
+                PUT
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Required data: name (first and last), birthdate (yyyy-mm-dd format), and coach_group</li>
+                        <li>Example: curl -X PUT -d "name=Siobhan Newell" -d "birthdate=1995-02-23" -d "coach_group=13%2b provincial" http://local.IP.address:port_number/coach/3</li>
+                        <li>This cURL format is possible with Flask's reqparse (see <a href="https://flask-restful.readthedocs.io/en/latest/reqparse.html">here</a> for more info)</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 201</li>
+                            <li>Response body contains an updated list of coach names + IDs in JSON format</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 409</li>
+                            <li>Response body: "There is already a user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+
+                PATCH
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Optional data to update: name (first and last), coach_group</li>
+                        <li>Example: curl -X PATCH -d "coach_group=13%2b provincial" http://local.IP.address:port_number/coach/2</li>
+                        <li>This cURL format is possible with Flask's reqparse (see <a href="https://flask-restful.readthedocs.io/en/latest/reqparse.html">here</a> for more info)</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 202</li>
+                            <li>Response body contains the updated coach info JSON format</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 409</li>
+                            <li>Response body: "There is already a user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+
+                DELETE
+                <ul>
+                    <div>Request</div>
+                    <ul>
+                        <li>Example: curl -X DELETE http://local.IP.address:port_number/coach/2</li>
+                    </ul>
+
+                    <div>Response</div>
+                    <ul>
+                        <div>On success</div>
+                        <ul>
+                            <li>Response status code will be 204</li>
+                            <li>Delete does not return JSON serializable data</li>
+                        </ul>
+                        <div>On error</div>
+                        <ul>
+                            <li>Response status code will be 404</li>
+                            <li>Response body: "There is no user with the ID &lt;user_id&gt;!</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </ul>
+        </div>
+    </body>
+    
+</html>
