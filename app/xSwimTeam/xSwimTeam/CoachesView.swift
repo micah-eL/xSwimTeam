@@ -36,7 +36,7 @@ struct CoachesView: View {
     }
     
     func getCoachList() {
-        guard let url = URL(string: "http://192.168.0.5:5000/coach/0") else {
+        guard let url = URL(string: "http://local.IP.address:port_number/coach/0") else {
             print("Invalid URL")
             return
         }
