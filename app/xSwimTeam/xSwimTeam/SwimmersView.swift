@@ -9,13 +9,19 @@ struct SwimmerList: Codable {
 
 struct SwimmersView: View {
     @State private var editMode: EditMode = .inactive
+    @State private var searchText = ""
     @State private var results = [SwimmerList]()
     
     var body: some View {
-        List (results, id: \.ID) { item in
-            link(label: "\(item.ID): \(item.Name)", destination: SwimmerInfoView(swimmerID: item.ID))
+        TabView {
+            List (results, id: \.ID) { item in
+                link(label: "\(item.ID): \(item.Name)", destination: SwimmerInfoView(swimmerID: item.ID))
+            }
+            .onAppear(perform: getSwimmerList)
+            .tabItem {
+                Image(systemName: "plus")
+            }
         }
-        .onAppear(perform: getSwimmerList)
         .navigationTitle("Swimmers")
         .toolbar {
             EditButton()
@@ -31,7 +37,7 @@ struct SwimmersView: View {
     }
     
     func getSwimmerList() {
-        guard let url = URL(string: "http://local.IP.address:port_number/swimmer/0") else {
+        guard let url = URL(string: "http://192.168.0.5:5000/swimmer/0") else {
             print("Invalid URL")
             return
         }

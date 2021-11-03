@@ -8,22 +8,25 @@ struct CoachList: Codable {
 
 
 struct CoachesView: View {
+    @State private var editMode: EditMode = .inactive
     @State private var results = [CoachList]()
     
     var body: some View {
-        List (results, id: \.ID) { item in
-            link(label: "\(item.ID): \(item.Name)", destination: CoachInfoView(coachID: item.ID))
+        TabView {
+            List (results, id: \.ID) { item in
+                link(label: "\(item.ID): \(item.Name)", destination: CoachInfoView(coachID: item.ID))
+            }
+            .onAppear(perform: getCoachList)
+            .tabItem {
+                Image(systemName: "plus")
+            }
         }
-        .onAppear(perform: getCoachList)
-        .navigationBarItems(trailing: Button(action: {}) {
-            Image(systemName: "plus")
-                .resizable()
-                .padding(6)
-                .background(Color.blue)
-                .clipShape(Circle())
-                .foregroundColor(.white)
-        })
+        .navigationTitle("Coaches")
+        .toolbar {
+            EditButton()
+        }
         .navigationBarTitleDisplayMode(.inline)
+        .environment(\.editMode, $editMode)
     }
     
     private func link<Destination: View>(label: String, destination: Destination) -> some View {
@@ -33,7 +36,7 @@ struct CoachesView: View {
     }
     
     func getCoachList() {
-        guard let url = URL(string: "http://local.IP.address:port_number/coach/0") else {
+        guard let url = URL(string: "http://192.168.0.5:5000/coach/0") else {
             print("Invalid URL")
             return
         }
